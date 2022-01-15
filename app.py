@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-	return "html/index.html"
+	return "<p>html/index.html</p>"
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
