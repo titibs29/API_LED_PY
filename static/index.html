@@ -1,5 +1,44 @@
 <!DOCTYPE html>
-<head></head>
+<html>
+
+<head>
+    <style>
+
+        h1 {
+            color: red;
+            text-decoration-line: underline;
+        }
+
+        h2 {
+            text-decoration-line: underline;
+        }
+
+        var {
+            color: blue;
+        }
+
+        body {
+            background-color: white;
+            color: black;
+
+        }
+
+    </style>
+</head>
+
 <body>
-    <p>hello world</p>
+    <h1>API cheat sheet</h1>
+    <h2>pin used</h2>
+    <p>11, 13, 15</p>
+    <h2>routes</h2>
+    <ul>
+        <li id=index>/</li>
+        <li id=get href="localhost:3000/get" target="_blank">/get(/<var>:pin</var>)</li>
+        <li id=pins href="localhost:3000/pins" target="_blank">/pins</li>
+        <li id=switch>/switch/<var>:pin</var></li>
+        <li id=set>/set/<var>:pin</var>/<var>:state</var></li>
+    </ul>
+    <p>every other route is blank</p>
 </body>
+
+</html>

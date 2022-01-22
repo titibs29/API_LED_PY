@@ -36,6 +36,8 @@ def getAll():
 
 @app.get('/switch/<pin:int>')
 def switch(pin):
+    if(not pin):
+        abort(code= 404, text="pin not provided")
     if(pin not in pins):
         abort(code=404,text="pin useless")
     states[pin] = not states[pin]
