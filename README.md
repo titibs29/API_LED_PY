@@ -11,3 +11,4 @@ tests were made using unittest module, to be integrated with the vs code interfa
 ## dep
 - bottle
 - RPi.GPIO (work on a raspberry)
+- paste
