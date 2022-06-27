@@ -18,10 +18,17 @@ def set(pin, state):
     states[pin] = state
     return "pin "+str(pin)+" changed to "+str(states[pin])
 
+@app.get('/setAll/<state:int>')
+def setAll(state):
+    gpio.output(pins, state)
+    for pin in states:
+        states[pin] = state
+    return "all pins changed to "+str(state)
+
 
 @app.get('/pins')
 def allPins():
-    return str(states.keys())
+    return str(pins)
 
 
 @app.get('/get/<pin:int>')
@@ -49,7 +56,7 @@ def switch(pin):
 
 @app.get('/')
 def index():
-    return static_file("index.html", root="./static")
+    return static_file("index.html", root="/home/pi/projects/API_LED_PY/API_LED_PY/static")
 
 
 if __name__ == "__main__":
@@ -57,10 +64,10 @@ if __name__ == "__main__":
     try:
 
         for pin in pins:
-            states[pin] = 0
+            states[pin] = 1
 
         gpio.setmode(gpio.BOARD)
-        gpio.setup(pins, gpio.OUT, initial=gpio.LOW)
+        gpio.setup(pins, gpio.OUT, initial=gpio.HIGH)
         run(app, server='paste', host='0', port=3000)
 
     finally:
