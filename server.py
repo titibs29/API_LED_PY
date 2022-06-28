@@ -1,6 +1,9 @@
 import RPi.GPIO as gpio
 from bottle import Bottle, abort, run, static_file
 
+defaultState = gpio.LOW
+
+
 app = Bottle()
 
 pins = [11, 13, 15]
@@ -12,7 +15,7 @@ def set(pin, state):
     if(pin not in pins):
         abort(code=404, text="pin useless")
     if(not (state == 1 or state == 0)):
-        abort(code=400, text='invalid state'+str(state))
+        abort(code=400, text='invalid state '+str(state))
 
     gpio.output(pin, state)
     states[pin] = state
@@ -56,18 +59,17 @@ def switch(pin):
 
 @app.get('/')
 def index():
-    return static_file("index.html", root="/home/pi/projects/API_LED_PY/API_LED_PY/static")
+    return static_file("index.html", root="static")
 
 
 if __name__ == "__main__":
 
     try:
-
         for pin in pins:
-            states[pin] = 1
+            states[pin] = defaultState
 
         gpio.setmode(gpio.BOARD)
-        gpio.setup(pins, gpio.OUT, initial=gpio.HIGH)
+        gpio.setup(pins, gpio.OUT, initial=defaultState)
         run(app, server='paste', host='0', port=3000)
 
     finally:

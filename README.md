@@ -5,6 +5,9 @@ a simple api made to activate and control GPIO on a raspberry via a web client.
 ## cheat sheet
 the cheat sheet is accessible under static/index.html or via the default page when the server is running
 
+## pins
+the defaults pins are the 11, 13 and 15 in BOARD mode
+
 ## tests
 tests were made using unittest module, to be integrated with the vs code interface
 
