@@ -65,11 +65,15 @@ def index():
 if __name__ == "__main__":
 
     try:
+        # filling the states list
         for pin in pins:
             states[pin] = defaultState
 
+        #setting up the pins
         gpio.setmode(gpio.BOARD)
         gpio.setup(pins, gpio.OUT, initial=defaultState)
+
+        #main server
         run(app, server='paste', host='0', port=3000)
 
     finally:
