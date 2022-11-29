@@ -21,6 +21,7 @@ def set(pin, state):
     states[pin] = state
     return "pin "+str(pin)+" changed to "+str(states[pin])
 
+
 @app.get('/setAll/<state:int>')
 def setAll(state):
     gpio.output(pins, state)
@@ -69,11 +70,11 @@ if __name__ == "__main__":
         for pin in pins:
             states[pin] = defaultState
 
-        #setting up the pins
+        # setting up the pins
         gpio.setmode(gpio.BOARD)
         gpio.setup(pins, gpio.OUT, initial=defaultState)
 
-        #main server
+        # main server
         run(app, server='paste', host='0', port=3000)
 
     finally:
