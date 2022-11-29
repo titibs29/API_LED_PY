@@ -47,17 +47,17 @@ class Test_TestAPI(unittest.TestCase):
     def test_getAll(self):
         self.conn.request("GET", "/get")
         res = self.conn.getresponse()
-        self.assertEquals(res.status,200)
+        self.assertEqual(res.status,200)
 
     def test_getWrongPin(self):
         self.conn.request("GET", "/get/14")
         res = self.conn.getresponse()
-        self.assertEquals(res.status,404)
+        self.assertEqual(res.status,404)
 
     def test_getPin(self):
         self.conn.request("GET", "/get/11")
         res = self.conn.getresponse()
-        self.assertEquals(res.status,200)
+        self.assertEqual(res.status,200)
 
 
 
