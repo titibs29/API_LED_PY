@@ -10,19 +10,22 @@ pins = [11, 13, 15]
 states = {}
 
 
-@app.route('/set/<pin:int>/<state:int>')
+
+@app.route('/set/<pin:int>/<state:bool>')
 def set(pin, state):
     if pin not in pins:
         abort(code=404, text="pin useless")
-    if not state in (1, 0):
+    if state not in (1, 0):
         abort(code=400, text='invalid state '+str(state))
 
     gpio.output(pin, state)
     states[pin] = state
     return "pin "+str(pin)+" changed to "+str(states[pin])
 
-@app.get('/setAll/<state:int>')
+@app.get('/setAll/<state:bool>')
 def setAll(state):
+    if state not in (1,0):
+        abort(code=404, text= "invalid state "+str(state))
     gpio.output(pins, state)
     for pin in states:
         states[pin] = state
