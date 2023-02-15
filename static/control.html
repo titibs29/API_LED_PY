@@ -79,8 +79,14 @@
         // If the checkbox is checked, display the output text
         if (checkBox.checked == true){
             text.style.display = "block";
+            fetch("/set/11/1")
+            .then(res => res.status)
+            .then(status => console.log(`turn on pin11 returned status ${status}`))
         } else {
             text.style.display = "none";
+            fetch("/set/11/0")
+            .then(res => res.status)
+            .then(status => console.log(`turn off pin11 returned status ${status}`))
         }
     }
     function fsw1()
@@ -93,8 +99,14 @@
         // If the checkbox is checked, display the output text
         if (checkBox.checked == true){
             text.style.display = "block";
+            fetch("/set/13/1")
+            .then(res => res.status)
+            .then(status => console.log(`turn on pin13 returned status ${status}`))
         } else {
             text.style.display = "none";
+            fetch("/set/13/0")
+            .then(res => res.status)
+            .then(status => console.log(`turn off pin13 returned status ${status}`))
         }
     }
     function fsw2()
@@ -107,9 +119,15 @@
         // If the checkbox is checked, display the output text
         if (checkBox.checked == true){
             text.style.display = "block";
+            fetch("/set/15/1")
+            .then(res => res.status)
+            .then(status => console.log(`turn on pin15 returned status ${status}`))
 
         } else {
             text.style.display = "none";
+            fetch("/set/15/0")
+            .then(res => res.status)
+            .then(status => console.log(`turn off pin15 returned status ${status}`))
         }
     }
 
