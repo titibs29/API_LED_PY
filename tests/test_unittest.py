@@ -14,6 +14,10 @@ class Test_TestAPI(unittest.TestCase):
         res = self.conn.getresponse()
         self.assertEqual(res.status, 200)
 
+    def test_control(self):
+        self.conn.request("GET", "/control")
+        res = self.conn.getresponse()
+        self.assertEqual(res.status, 200)
 
 
     def test_setWrongPin(self):
