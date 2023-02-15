@@ -65,6 +65,31 @@
 </style>
 
 <script>
+    // get the current state of the switches at page load
+    function atload()
+    {
+        fetch("/get")
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            for (var i = 11; i <= 15; i+=2){
+                var sw = document.getElementById("sw"+i);
+                var text = document.getElementById("tsw"+i);
+                if (data[i] == 1){
+                    sw.checked = true;
+                    text.style.display = "block";
+                } else {
+                    sw.checked = false;
+                    text.style.display = "none";
+                }
+                console.log(i)
+                console.log(sw)
+                console.log(data[i])
+            }
+        });
+    }
+
+
     function redir(){
             window.location.replace("/");
         }
@@ -77,13 +102,13 @@
         var text = document.getElementById("t" + el.id)
         pin=0
         switch(el.id){
-            case "sw0":
+            case "sw11":
                 pin = 11;
                 break;
-            case "sw1":
+            case "sw13":
                 pin = 13;
                 break;
-            case "sw2":
+            case "sw15":
                 pin = 15;
                 break;
         }
@@ -114,29 +139,29 @@
     <title>control the leds</title>
 
 </head>
-<body>
+<body onload="atload()">
     <button onclick="redir()">back</button>
 
     <h2>switch 1</h2>
     <!-- add a rounded switch -->
     <label class="switch">
-        <input type="checkbox" id="sw0" onclick="fsw(this)">
+        <input type="checkbox" id="sw11" onclick="fsw(this)">
         <span class="slider round"></span>
     </label>
 
     <h2>switch 2</h2>
     <label class="switch">
-        <input type="checkbox" id="sw1" onclick="fsw(this)">
+        <input type="checkbox" id="sw13" onclick="fsw(this)">
         <span class="slider round"></span>
     </label>
 
     <h2>switch 3</h2>
     <label class="switch">
-        <input type="checkbox" id="sw2" onclick="fsw(this)">
+        <input type="checkbox" id="sw15" onclick="fsw(this)">
         <span class="slider round"></span>
     </label>
-    <p id="tsw0" style="display:none">switch 1 on</p>
-    <p id="tsw1" style="display:none">switch 2 on</p>
-    <p id="tsw2" style="display:none">switch 3 on</p>
+    <p id="tsw11" style="display:none">switch 1 on</p>
+    <p id="tsw13" style="display:none">switch 2 on</p>
+    <p id="tsw15" style="display:none">switch 3 on</p>
 </body>
 
