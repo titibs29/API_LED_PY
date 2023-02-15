@@ -1,8 +1,8 @@
 import RPi.GPIO as gpio
 from bottle import Bottle, abort, run, static_file
 
-defaultState = gpio.LOW
 
+defaultState = gpio.LOW
 
 app = Bottle()
 
@@ -11,7 +11,7 @@ states = {}
 
 
 
-@app.route('/set/<pin:int>/<state:bool>')
+@app.route('/set/<pin:int>/<state:int>')
 def set(pin, state):
     if pin not in pins:
         abort(code=404, text="pin useless")
@@ -22,7 +22,7 @@ def set(pin, state):
     states[pin] = state
     return "pin "+str(pin)+" changed to "+str(states[pin])
 
-@app.get('/setAll/<state:bool>')
+@app.get('/setAll/<state:int>')
 def setAll(state):
     if state not in (1,0):
         abort(code=404, text= "invalid state "+str(state))
@@ -63,6 +63,11 @@ def switch(pin):
 @app.get('/')
 def index():
     return static_file("index.html", root="static")
+
+#create control route on /control
+@app.get('/control')
+def control():
+    return static_file("control.html", root="static")
 
 
 if __name__ == "__main__":
