@@ -69,66 +69,43 @@
             window.location.replace("/");
         }
 
-    function fsw0()
+    function fsw(el)
     {
         // Get the checkbox
-        var checkBox = document.getElementById("sw0");
+        var checkBox = document.getElementById(el.id);
         // get the text
-        var text = document.getElementById("tsw0")
+        var text = document.getElementById("t" + el.id)
+        pin=0
+        switch(el.id){
+            case "sw0":
+                pin = 11;
+                break;
+            case "sw1":
+                pin = 13;
+                break;
+            case "sw2":
+                pin = 15;
+                break;
+        }
 
         // If the checkbox is checked, display the output text
         if (checkBox.checked == true){
-            text.style.display = "block";
-            fetch("/set/11/1")
-            .then(res => res.status)
-            .then(status => console.log(`turn on pin11 returned status ${status}`))
+            state = 1;
         } else {
-            text.style.display = "none";
-            fetch("/set/11/0")
-            .then(res => res.status)
-            .then(status => console.log(`turn off pin11 returned status ${status}`))
+            state = 0;
         }
-    }
-    function fsw1()
-    {
-        // Get the checkbox
-        var checkBox = document.getElementById("sw1");
-        // get the text
-        var text = document.getElementById("tsw1")
-
-        // If the checkbox is checked, display the output text
-        if (checkBox.checked == true){
-            text.style.display = "block";
-            fetch("/set/13/1")
-            .then(res => res.status)
-            .then(status => console.log(`turn on pin13 returned status ${status}`))
-        } else {
-            text.style.display = "none";
-            fetch("/set/13/0")
-            .then(res => res.status)
-            .then(status => console.log(`turn off pin13 returned status ${status}`))
-        }
-    }
-    function fsw2()
-    {
-        // Get the checkbox
-        var checkBox = document.getElementById("sw2");
-        // get the text
-        var text = document.getElementById("tsw2")
-
-        // If the checkbox is checked, display the output text
-        if (checkBox.checked == true){
-            text.style.display = "block";
-            fetch("/set/15/1")
-            .then(res => res.status)
-            .then(status => console.log(`turn on pin15 returned status ${status}`))
-
-        } else {
-            text.style.display = "none";
-            fetch("/set/15/0")
-            .then(res => res.status)
-            .then(status => console.log(`turn off pin15 returned status ${status}`))
-        }
+        fetch("/set/"+pin+"/"+state)
+        .then(res => res.status)
+        .then(status => {
+            if (state == 1 && status == 200){
+                text.style.display = "block";
+                console.log(`turn on pin${pin} returned status ${status}`)
+            } else if (state == 0 && status == 200){
+                text.style.display = "none";
+                console.log(`turn off pin${pin} returned status ${status}`)
+            }else{
+                console.error(`error returned status ${status}`)
+            }});
     }
 
 </script>
@@ -143,19 +120,19 @@
     <h2>switch 1</h2>
     <!-- add a rounded switch -->
     <label class="switch">
-        <input type="checkbox" id="sw0" onclick="fsw0()">
+        <input type="checkbox" id="sw0" onclick="fsw(this)">
         <span class="slider round"></span>
     </label>
 
     <h2>switch 2</h2>
     <label class="switch">
-        <input type="checkbox" id="sw1" onclick="fsw1()">
+        <input type="checkbox" id="sw1" onclick="fsw(this)">
         <span class="slider round"></span>
     </label>
 
     <h2>switch 3</h2>
     <label class="switch">
-        <input type="checkbox" id="sw2" onclick="fsw2()">
+        <input type="checkbox" id="sw2" onclick="fsw(this)">
         <span class="slider round"></span>
     </label>
     <p id="tsw0" style="display:none">switch 1 on</p>
