@@ -27,7 +27,7 @@
 
     <script>
         function redir(){
-            window.location.href = "http://localhost:3000/control";
+            window.location.replace("/control");
         }
     </script>
 </head>
@@ -39,6 +39,7 @@
     <h2>routes</h2>
     <ul>
         <li id=index>/</li>
+        <li id=control>/control</li>
         <li id=get href="localhost:3000/get" target="_blank">/get(/<var>:pin</var>)</li>
         <li id=pins href="localhost:3000/pins" target="_blank">/pins</li>
         <li id=switch>/switch/<var>:pin</var></li>

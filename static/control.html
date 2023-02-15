@@ -65,6 +65,10 @@
 </style>
 
 <script>
+    function redir(){
+            window.location.replace("/");
+        }
+
     function fsw0()
     {
         // Get the checkbox
@@ -103,7 +107,7 @@
         // If the checkbox is checked, display the output text
         if (checkBox.checked == true){
             text.style.display = "block";
-            
+
         } else {
             text.style.display = "none";
         }
@@ -116,6 +120,8 @@
 
 </head>
 <body>
+    <button onclick="redir()">back</button>
+
     <h2>switch 1</h2>
     <!-- add a rounded switch -->
     <label class="switch">
