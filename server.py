@@ -2,7 +2,7 @@ import RPi.GPIO as gpio
 from bottle import Bottle, abort, run, static_file
 
 
-defaultState = gpio.LOW
+defaultState = gpio.HIGH
 
 app = Bottle()
 
