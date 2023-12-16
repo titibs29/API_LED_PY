@@ -10,7 +10,6 @@ pins = [11, 13, 15]
 states = {}
 
 
-
 @app.route('/set/<pin:int>/<state:int>')
 def set(pin, state):
     if pin not in pins:
@@ -22,10 +21,11 @@ def set(pin, state):
     states[pin] = state
     return "pin "+str(pin)+" changed to "+str(states[pin])
 
+
 @app.get('/setAll/<state:int>')
 def setAll(state):
-    if state not in (1,0):
-        abort(code=404, text= "invalid state "+str(state))
+    if state not in (1, 0):
+        abort(code=404, text="invalid state "+str(state))
     gpio.output(pins, state)
     for pin in states:
         states[pin] = state
@@ -64,7 +64,9 @@ def switch(pin):
 def index():
     return static_file("index.html", root="static")
 
-#create control route on /control
+# create control route on /control
+
+
 @app.get('/control')
 def control():
     return static_file("control.html", root="static")
@@ -77,11 +79,11 @@ if __name__ == "__main__":
         for pin in pins:
             states[pin] = defaultState
 
-        #setting up the pins
+        # setting up the pins
         gpio.setmode(gpio.BOARD)
         gpio.setup(pins, gpio.OUT, initial=defaultState)
 
-        #main server
+        # main server
         run(app, server='paste', host='0', port=3000)
 
     finally:
