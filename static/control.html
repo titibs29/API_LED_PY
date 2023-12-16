@@ -68,29 +68,27 @@
     // get the current state of the switches at page load
     function atload()
     {
-        fetch("/get")
+        fetch("/get",{mode:"no-cors"})
         .then(res => res.json())
         .then(data => {
             console.log(data)
             for (var i = 11; i <= 15; i+=2){
                 var sw = document.getElementById("sw"+i);
                 var text = document.getElementById("tsw"+i);
-                if (data[i] == 1){
+                if (data[i] == 0){
                     sw.checked = true;
                     text.style.display = "block";
                 } else {
                     sw.checked = false;
                     text.style.display = "none";
                 }
-                console.log(i)
-                console.log(sw)
-                console.log(data[i])
             }
         });
     }
 
 
     function redir(){
+	// go to the main page
             window.location.replace("/");
         }
 
@@ -115,17 +113,17 @@
 
         // If the checkbox is checked, display the output text
         if (checkBox.checked == true){
-            state = 1;
-        } else {
             state = 0;
+        } else {
+            state = 1;
         }
         fetch("/set/"+pin+"/"+state)
         .then(res => res.status)
         .then(status => {
-            if (state == 1 && status == 200){
+            if (state == 0 && status == 200){
                 text.style.display = "block";
                 console.log(`turn on pin${pin} returned status ${status}`)
-            } else if (state == 0 && status == 200){
+            } else if (state == 1 && status == 200){
                 text.style.display = "none";
                 console.log(`turn off pin${pin} returned status ${status}`)
             }else{
